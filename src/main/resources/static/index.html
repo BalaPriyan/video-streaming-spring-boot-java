@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head><title>Upload Movie</title></head>
+<body>
+  <h2>Upload Movie</h2>
+  <form action="/movies/upload" method="post" enctype="multipart/form-data">
+    <input type="text" name="title" placeholder="Title" required><br>
+    <input type="text" name="genre" placeholder="genre" required><br>
+    <input type="text" name="language" placeholder="language" required><br>
+    <textarea name="description" placeholder="Description" required></textarea><br>
+    <label>Movie File: </label><input type="file" name="video" accept="video/*" required><br>
+    <label>Thumbnail: </label><input type="file" name="thumbnail" accept="image/*" required><br>
+    <button type="submit">Upload</button>
+  </form>
+</body>
+</html>

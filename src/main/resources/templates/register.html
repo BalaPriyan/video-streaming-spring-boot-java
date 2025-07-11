@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css" />
+  <title>Register Page</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .container.is-fullhd {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+    .box {
+      padding: 25px;
+      min-width: 320px;
+    }
+    #haro {
+      margin-top: 10px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container is-fullhd">
+    <h1 class="title">Hey, User!</h1>
+    <h2 class="subtitle">Create Account To Enjoy The Service</h2>
+
+    <form class="box" id="registerForm">
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control">
+          <input class="input" type="text" id="username" name="username" placeholder="e.g. alex@example.com" required />
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Password</label>
+        <div class="control">
+          <input class="input" type="password" id="password" name="password" placeholder="********" required />
+        </div>
+      </div>
+
+      <button class="button is-fullwidth is-primary" type="submit">Register Now</button>
+
+      <p class="has-text-centered" id="haro">Already Have Account?</p>
+      <button class="button is-fullwidth" type="button" onclick="window.location.href='http://localhost:9000/login'">Login Now</button>
+
+      <p id="result" class="has-text-danger has-text-centered mt-3"></p>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('registerForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      try {
+        const res = await fetch('http://localhost:9000/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+
+        const resultText = document.getElementById('result');
+        if (res.ok) {
+          resultText.innerText = "Registered successfully! Redirecting...";
+          setTimeout(() => {
+            window.location.href = "/login";
+          }, 1000);
+        } else {
+          resultText.innerText = "Registration failed! Try again.";
+        }
+      } catch (err) {
+        document.getElementById('result').innerText = "Network error!";
+        console.error("Error:", err);
+      }
+    });
+  </script>
+
+</body>
+</html>

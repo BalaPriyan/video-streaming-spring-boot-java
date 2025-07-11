@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Home Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/home">
+      Fondness
+
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item">
+        Home
+      </a>
+
+      <a class="navbar-item">
+        Documentation
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item">
+            About
+          </a>
+          <a class="navbar-item is-selected">
+            Jobs
+          </a>
+          <a class="navbar-item">
+            Contact
+          </a>
+          <hr class="navbar-divider">
+          <a class="navbar-item">
+            Report an issue
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="buttons">
+          <a class="button is-primary" href="/register">
+            <strong>Sign up</strong>
+          </a>
+          <a class="button is-light" href="/login">
+            Log in
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="container">
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <p class="title">Hero Section</p>
+            <div class="columns is-multiline">
+                <div class="column is-3" th:each="hero : ${heroList}">
+                    <div class="card">
+                        <div class="card-image">
+                            <figure class="image is-4by3">
+                                <img th:src="${hero.thumbnailPath}" th:alt="${hero.title}" />
+                            </figure>
+                        </div>
+                        <div class="card-content">
+                            <p class="title is-5" th:text="${hero.title}">Title</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="title">Movies</h2>
+        <div class="columns is-multiline">
+            <div class="column is-3" th:each="movie : ${movieList}">
+                <div class="card" th:onclick="'window.location.href=\'/player/' + ${movie.id} + '\''">
+                    <div class="card-image">
+                        <figure class="image is-4by3">
+                            <img th:src="${movie.thumbnailPath}" th:alt="${movie.title}" />
+                        </figure>
+                    </div>
+                    <div class="card-content">
+                        <p class="title is-6" th:text="${movie.title}">Movie Title</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>
